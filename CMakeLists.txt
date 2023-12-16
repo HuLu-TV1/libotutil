@@ -20,10 +20,12 @@ set(SRC
 "include/common/ThreadPool.h"
 "include/common/time_wheel.h"
 "include/common/timer_list.h"
+"include/common/arena.h"
 "src/common/cfile.cpp"
 "src/common/fileManager.cpp" 
 "src/common/log.cpp"
 "src/common/ThreadPool.cpp"
+"src/common/arena.cpp"
 )
 
 
