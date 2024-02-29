@@ -33,3 +33,7 @@ add_library(otutil SHARED ${SRC})
 target_include_directories(otutil PRIVATE ${COMMON_INC})
 target_link_options(otutil PRIVATE -w -g -fstack-protector -fPIC)
 target_link_libraries(otutil PRIVATE pthread)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_compile_definitions(otutil PUBLIC NLOG)
+endif()

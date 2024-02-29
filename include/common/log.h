@@ -116,6 +116,7 @@ private:
 
 }
 
+#ifndef NLOG
 #define LOG_DEBUG(format, ...) \
     do {                       \
         if (!CommonLog::Logger::GetInstance()->IsInited())   \
@@ -160,6 +161,12 @@ private:
             CommonLog::Logger::GetInstance()->Flush();                    \
         }                                                                       \
     } while(0)
+#else
+#define LOG_DEBUG(format, ...)
+#define LOG_INFO(format, ...)
+#define LOG_WARN(format, ...)
+#define LOG_ERROR(format, ...)
+#endif
 
 #define COMPACT_OPENTE_LOG_EXT(severity, ClassName, ...) \
     ::CommonLog::ClassName(__FILE__, __LINE__, \
@@ -173,4 +180,8 @@ private:
 #define LOG_IS_ON(severity) \
     ((::CommonLog::LogLevel::LOG_ ## severity) <= ::CommonLog::GetMaxLogLevel())
 
+#ifndef NLOG
 #define CLOG(severity,msg)	LAZY_STREAM(LOG_STREAM(severity), LOG_IS_ON(severity)) << msg << " "
+#else
+#define CLOG(severity,msg)
+#endif
