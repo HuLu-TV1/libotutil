@@ -7,6 +7,7 @@
 #include <cstdarg>
 #include <cstring>
 #include <sstream>
+#include <iostream>
 #include "log_queue.h"
 
 namespace CommonLog {
