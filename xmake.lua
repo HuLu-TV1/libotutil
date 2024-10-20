@@ -1,0 +1,7 @@
+set_languages("c++20")
+target("otutil")
+    set_kind("shared")
+    add_includedirs("include/common")
+    add_files("src/common/*.cpp")
+    remove_files("src/common/parse_pcap.cpp")
+    add_syslinks("pthread")
