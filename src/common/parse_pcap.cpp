@@ -240,7 +240,7 @@ void ParsePcap::IpV4Decode(const unsigned char *buf)
   }
   else if (protocol == 0x06)
   {
-    TcpDecode(buf + sizeof(IPv4Header), datalength - sizeof(IPv4Header));
+    TcpDecode(buf + sizeof(IPv4Header), (uint16_t)(datalength - sizeof(IPv4Header)));
   }
 }
 
