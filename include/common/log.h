@@ -10,8 +10,6 @@
 #include <iostream>
 #include "log_queue.h"
 
-namespace CommonLog {
-
 enum class LogType {
     LOG_FILE,
     LOG_PRINT,
@@ -115,51 +113,49 @@ private:
     const int line_;
 };
 
-}
-
 #ifndef NLOG
 #define LOG_DEBUG(format, ...) \
     do {                       \
-        if (!CommonLog::Logger::GetInstance()->IsInited())   \
+        if (!Logger::GetInstance()->IsInited())   \
             std::cout << "logger must be inited before use!" << std::endl; \
         else \
         {                                                     \
-            CommonLog::Logger::GetInstance()->WriteLog(__FILE__, __FUNCTION__, __LINE__, CommonLog::LogLevel::LOG_DEBUG, format, ##__VA_ARGS__); \
-            CommonLog::Logger::GetInstance()->Flush();                    \
+            Logger::GetInstance()->WriteLog(__FILE__, __FUNCTION__, __LINE__, LogLevel::LOG_DEBUG, format, ##__VA_ARGS__); \
+            Logger::GetInstance()->Flush();                    \
         }                                                                       \
     } while(0)
     
 
 #define LOG_INFO(format, ...) \
     do {                       \
-        if (!CommonLog::Logger::GetInstance()->IsInited())   \
+        if (!Logger::GetInstance()->IsInited())   \
             std::cout << "logger must be inited before use!" << std::endl; \
         else \
         {                                                     \
-            CommonLog::Logger::GetInstance()->WriteLog(__FILE__, __FUNCTION__, __LINE__, CommonLog::LogLevel::LOG_INFO, format, ##__VA_ARGS__); \
-            CommonLog::Logger::GetInstance()->Flush();                    \
+            Logger::GetInstance()->WriteLog(__FILE__, __FUNCTION__, __LINE__, LogLevel::LOG_INFO, format, ##__VA_ARGS__); \
+            Logger::GetInstance()->Flush();                    \
         }                                                                       \
     } while(0)
 
 #define LOG_WARN(format, ...) \
     do {                      \
-        if (!CommonLog::Logger::GetInstance()->IsInited())   \
+        if (!Logger::GetInstance()->IsInited())   \
             std::cout << "logger must be inited before use!" << std::endl; \
         else \
         {                                                     \
-            CommonLog::Logger::GetInstance()->WriteLog(__FILE__, __FUNCTION__, __LINE__, CommonLog::LogLevel::LOG_WARN, format, ##__VA_ARGS__); \
-            CommonLog::Logger::GetInstance()->Flush();                    \
+            Logger::GetInstance()->WriteLog(__FILE__, __FUNCTION__, __LINE__, LogLevel::LOG_WARN, format, ##__VA_ARGS__); \
+            Logger::GetInstance()->Flush();                    \
         }                                                                       \
     } while(0)
 
 #define LOG_ERROR(format, ...) \
     do {                       \
-        if (!CommonLog::Logger::GetInstance()->IsInited())   \
+        if (!Logger::GetInstance()->IsInited())   \
             std::cout << "logger must be inited before use!" << std::endl; \
         else \
         {                                                     \
-            CommonLog::Logger::GetInstance()->WriteLog(__FILE__, __FUNCTION__, __LINE__, CommonLog::LogLevel::LOG_ERROR, format, ##__VA_ARGS__); \
-            CommonLog::Logger::GetInstance()->Flush();                    \
+            Logger::GetInstance()->WriteLog(__FILE__, __FUNCTION__, __LINE__, LogLevel::LOG_ERROR, format, ##__VA_ARGS__); \
+            Logger::GetInstance()->Flush();                    \
         }                                                                       \
     } while(0)
 #else
@@ -170,16 +166,16 @@ private:
 #endif
 
 #define COMPACT_OPENTE_LOG_EXT(severity, ClassName, ...) \
-    ::CommonLog::ClassName(__FILE__, __LINE__, \
-    ::CommonLog::LOG_##severity, ##__VA_ARGS__)
+    ::ClassName(__FILE__, __LINE__, \
+    ::LOG_##severity, ##__VA_ARGS__)
 #define COMPACT_OPENTE_LOG(severity) COMPACT_OPENTE_LOG_EXT(severity, LogMessage)
 #define LOG_STREAM(severity) COMPACT_OPENTE_LOG(severity).stream()
 
 #define LAZY_STREAM(stream, condition)                                  \
-    !(condition) ? (void) 0 : ::CommonLog::LogMessageVoidify() & (stream)
+    !(condition) ? (void) 0 : ::LogMessageVoidify() & (stream)
 
 #define LOG_IS_ON(severity) \
-    ((::CommonLog::LogLevel::LOG_ ## severity) <= ::CommonLog::GetMaxLogLevel())
+    ((::LogLevel::LOG_ ## severity) <= ::GetMaxLogLevel())
 
 #ifndef NLOG
 #define CLOG(severity,msg)	LAZY_STREAM(LOG_STREAM(severity), LOG_IS_ON(severity)) << msg << " "

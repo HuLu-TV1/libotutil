@@ -6,8 +6,6 @@
 #include <cassert>
 #include "common.h"
 
-namespace util {
-
 class Arena {
 public:
     DISALLOW_COPY_AND_MOVE(Arena)
@@ -31,7 +29,5 @@ private:
     std::vector<char*> blocks_;
     std::atomic<size_t> memory_usage_;
 };
-
-}
 
 #endif

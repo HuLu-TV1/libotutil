@@ -6,8 +6,6 @@
 #include <iomanip>
 #include <iostream>
 #include "log.h"
-
-using namespace CommonLog;
 const int kPathMax = 255;
 
 const char *KLogLevelName[LogLevel::LOG_NUM] = {
@@ -21,7 +19,7 @@ LoggingDestinationOption KLoggingDestination = LOG_DEFAULT;
 std::string KLogFileName;
 FILE* KLogFile;
 
-void CommonLog::InitLogSetting(LoggingDestinationOption destination) {
+void InitLogSetting(LoggingDestinationOption destination) {
     KLoggingDestination = destination;
     if (destination & LOG_TO_FILE_RESET) {
         if (!KLogFile) return;

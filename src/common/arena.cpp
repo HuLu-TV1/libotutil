@@ -1,6 +1,5 @@
 #include "arena.h"
 
-namespace util {
 static const int kBlockSize = 4096;
 
 Arena::Arena(): alloc_ptr_(nullptr), alloc_bytes_remain_(0), memory_usage_(0) {}
@@ -49,6 +48,4 @@ char* Arena::AllocateNewBlock(size_t block_bytes) {
     blocks_.push_back(result);
     memory_usage_.fetch_add(block_bytes + sizeof(char*), std::memory_order_relaxed);
     return result;
-}
-
 }
